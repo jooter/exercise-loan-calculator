@@ -25,7 +25,7 @@ jobs:
       run: go build -v ./...
       
     - name: Lint
-      run: $(go evn PATH)/golangci-lint run -v
+      run: $(go env PATH)/golangci-lint run -v
 
     - name: Test
       run: go test -v ./...
