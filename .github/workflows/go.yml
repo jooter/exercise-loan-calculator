@@ -30,13 +30,19 @@ jobs:
     - name: Test
       run: go test -v ./...
       
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v2
+      with:
+          # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
+        version: latest
+  
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+
     - id: Auth
       uses: google-github-actions/auth@v0.4.0
       with:
         credentials_json: '${{ secrets.GCP_SERVICE_ACCESS_KEY_JSON }}'
-        
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.3.0
-      
+              
     - name: Deploy
       run: gcloud app deploy --quiet
