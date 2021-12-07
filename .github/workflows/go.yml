@@ -44,7 +44,6 @@ jobs:
     - name: Use gcloud CLI
       run: gcloud info
       
-    # - uses: actions/checkout@v1
     - uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: exercise-loan-calculator
