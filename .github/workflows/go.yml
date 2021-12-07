@@ -30,10 +30,7 @@ jobs:
     - name: Test
       run: go test -v ./...
       
-    - name: Deploy GCP_SERVICE_ACCESS_KEY_JSON
-      run: date
-    
-    - id: 'auth'
+    - id: Auth
       uses: 'google-github-actions/auth@v0.4.0'
       with:
         credentials_json: '${{ secrets.GCP_SERVICE_ACCESS_KEY_JSON }}'
@@ -45,7 +42,7 @@ jobs:
       run: gcloud info
       
     - name: Deploy simple
-      run: gcloud app deploy
+      run: gcloud app deploy --quiet
         
     - uses: actions-hub/gcloud@master
       env:
