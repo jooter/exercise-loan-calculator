@@ -17,13 +17,13 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.17
-
-    - name: Install Lint
-      run: true go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-      
+        
     - name: Build
       run: go build -v ./...
       
+    - name: Install Lint
+      run: true go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
     - name: Lint
       run: true $(go env GOPATH)/bin/golangci-lint run -v
 
@@ -31,26 +31,12 @@ jobs:
       run: go test -v ./...
       
     - id: Auth
-      uses: 'google-github-actions/auth@v0.4.0'
+      uses: google-github-actions/auth@v0.4.0
       with:
         credentials_json: '${{ secrets.GCP_SERVICE_ACCESS_KEY_JSON }}'
         
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v0.3.0
-
-    - name: Use gcloud CLI
-      run: gcloud info
       
-    - name: Deploy simple
+    - name: Deploy
       run: gcloud app deploy --quiet
-        
-    - uses: actions-hub/gcloud@master
-      env:
-          PROJECT_ID: exercise-loan-calculator
-          APPLICATION_CREDENTIALS: ${{secrets.GCP_SERVICE_ACCESS_KEY_JSON}}
-      with:
-          args: app deploy app.yaml
-
-
-    - id: Deploy
-      uses: google-github-actions/deploy-appengine@v0.4.0
