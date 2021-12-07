@@ -38,6 +38,9 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCP_SERVICE_ACCESS_KEY_JSON }}'
         
+    - name: Deploy simple
+      run: gcloud app deploy
+        
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v0.3.0
 
